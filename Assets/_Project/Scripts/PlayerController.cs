@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
 
     public CharacterController controller;
+    public Animator anim;
     private Vector3 _direction;
     public float speed = 8;
     public float jumpForce = 10f;
@@ -14,35 +15,42 @@ public class PlayerController : MonoBehaviour
     
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public bool isGrounded;
 
-    public bool canDoubleJump = true;
+    public Transform model;
 
+    
 
     private void Update()
     {
         float hInput = Input.GetAxis("Horizontal");
-       
+
+        anim.SetFloat("speed", Mathf.Abs(hInput));
         _direction.x = hInput * speed;
-        bool isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
+        isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
+        
+        anim.SetBool("isGrounded", isGrounded);
+
 
 
         if (isGrounded)
         {
             // _direction.y = 0;
-            canDoubleJump = true;
             if (Input.GetButtonDown("Jump"))
             {
+
                 _direction.y = jumpForce;
             }
         }
         else
         {
             _direction.y += gravity * Time.deltaTime;
-            if (canDoubleJump && Input.GetButtonDown("Jump"))
-            {
-                _direction.y = jumpForce;
-                canDoubleJump = false;
-            }
+        }
+
+        if (hInput != 0)
+        {
+            Quaternion newRotation = Quaternion.LookRotation(new Vector3(hInput, 0, 0));
+            model.rotation = newRotation;
         }
 
         controller.Move(_direction * Time.deltaTime);
