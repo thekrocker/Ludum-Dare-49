@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     public CharacterController controller;
     public Animator anim;
+    private Health _health;
     private Vector3 _direction;
     public float speed = 8;
     public float jumpForce = 10f;
@@ -31,11 +32,22 @@ public class PlayerController : MonoBehaviour
     {
         lampMat.DisableKeyword("_EMISSION");
         volume.profile.TryGet<Bloom>(out _bloom);
+        _health = GetComponent<Health>();
     }
 
     private void Update()
     {
         ToggleLamp();
+
+        if (!IsToggleLamp)
+        {
+            tickTime -= Time.deltaTime;
+            if (tickTime <= 0)
+            {
+                _health.TakeDamage(5);
+                tickTime = 1;
+            }
+        }
 
         float hInput = Input.GetAxis("Horizontal");
 
@@ -90,13 +102,6 @@ public class PlayerController : MonoBehaviour
         {
             lampMat.DisableKeyword("_EMISSION");
             _bloom.threshold.value = 0.5f;
-
-            tickTime -= Time.deltaTime;
-            if (tickTime <= 0)
-            {
-                
-                tickTime = 1;
-            }
             // HEALTH DEGENERATION
         }
     }
