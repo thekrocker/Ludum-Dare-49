@@ -1,9 +1,54 @@
 fileFormatVersion: 2
-guid: 5eed1f98f8e1f78448b676b644871b46
+guid: f82d9a3e89c0af54fbc094dc10683e89
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beton
+    second: {fileID: 2100000, guid: 31309b417314ece44a4e170eb8f62055, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cam
+    second: {fileID: 2100000, guid: 542fef24fff473b48a5ef7ba6f93a129, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Green
+    second: {fileID: 2100000, guid: 55b5df98d84ee50438f75b196a4d4ef7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalBoru
+    second: {fileID: 2100000, guid: fa57bb0ac636ea64c9a086e742c301ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Orange
+    second: {fileID: 2100000, guid: d0fc3eb5ccb061f49af7dd734f17e87c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastic
+    second: {fileID: 2100000, guid: 111dcb5a8cf4a0241a83628bface36ca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Red
+    second: {fileID: 2100000, guid: e447e3d228f1b8546b9058ca69b62d56, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tahta
+    second: {fileID: 2100000, guid: 9ad11071e57ceea43a1c315c77a375e4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Yellow
+    second: {fileID: 2100000, guid: edbf604c3feb97f4a821c9b0c71b0559, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

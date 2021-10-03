@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: f82d9a3e89c0af54fbc094dc10683e89
+guid: 5eed1f98f8e1f78448b676b644871b46
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Beton
+    second: {fileID: 2100000, guid: 31309b417314ece44a4e170eb8f62055, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BinaBeton
+    second: {fileID: 2100000, guid: 31309b417314ece44a4e170eb8f62055, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
