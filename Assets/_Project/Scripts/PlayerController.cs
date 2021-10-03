@@ -48,6 +48,16 @@ public class PlayerController : MonoBehaviour
                 tickTime = 1;
             }
         }
+        else
+        {
+            tickTime -= Time.deltaTime;
+            if (tickTime <= 0)
+            {
+                _health.Heal(5);
+                tickTime = 1;
+            }
+            
+        }
 
         float hInput = Input.GetAxis("Horizontal");
 
