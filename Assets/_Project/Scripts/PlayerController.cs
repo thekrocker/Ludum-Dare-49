@@ -19,13 +19,16 @@ public class PlayerController : MonoBehaviour
 
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public LayerMask blockLayer;
     public bool isGrounded;
+    public bool isOnBlock;
     public bool IsToggleLamp { get; private set; }
 
     public Transform model;
     public Material lampMat;
     public Volume volume;
     private Bloom _bloom;
+    public float hInput;
     
 
     private void Start()
@@ -37,6 +40,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+
+        Debug.Log("Direction x:" + _direction.x);
+        Debug.Log("HInput:" + hInput);
         ToggleLamp();
 
         if (!IsToggleLamp)
@@ -59,23 +65,35 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        float hInput = Input.GetAxis("Horizontal");
+        hInput = Input.GetAxis("Horizontal");
 
         anim.SetFloat("speed", Mathf.Abs(hInput));
         _direction.x = hInput * speed;
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
+        isOnBlock = Physics.CheckSphere(groundCheck.position, 0.15f, blockLayer);
 
         anim.SetBool("isGrounded", isGrounded);
 
+        if (isOnBlock)
+        {
+            anim.SetBool("isGrounded", true);
+            if (Input.GetButtonDown("Jump"))
+            {
+                anim.SetBool("isGrounded", true);
+
+                _direction.y = jumpForce;
+            }
+            anim.SetFloat("speed", Mathf.Abs(hInput));
+        }
 
         if (isGrounded)
         {
-            // _direction.y = 0;
+            isOnBlock = false;
             if (Input.GetButtonDown("Jump"))
             {
                 _direction.y = jumpForce;
             }
-        }
+        } 
         else
         {
             _direction.y += gravity * Time.deltaTime;
