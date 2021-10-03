@@ -2,35 +2,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
-
     public CharacterController controller;
     public Animator anim;
     private Vector3 _direction;
     public float speed = 8;
     public float jumpForce = 10f;
     public float gravity = -8.92f;
-    
+
+    public float tickTime;
+
     public Transform groundCheck;
     public LayerMask groundLayer;
     public bool isGrounded;
+    public bool IsToggleLamp { get; private set; }
 
     public Transform model;
-
+    public Material lampMat;
+    public Volume volume;
+    private Bloom _bloom;
     
+
+    private void Start()
+    {
+        lampMat.DisableKeyword("_EMISSION");
+        volume.profile.TryGet<Bloom>(out _bloom);
+    }
 
     private void Update()
     {
+        ToggleLamp();
+
         float hInput = Input.GetAxis("Horizontal");
 
         anim.SetFloat("speed", Mathf.Abs(hInput));
         _direction.x = hInput * speed;
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.15f, groundLayer);
-        
-        anim.SetBool("isGrounded", isGrounded);
 
+        anim.SetBool("isGrounded", isGrounded);
 
 
         if (isGrounded)
@@ -38,7 +51,6 @@ public class PlayerController : MonoBehaviour
             // _direction.y = 0;
             if (Input.GetButtonDown("Jump"))
             {
-
                 _direction.y = jumpForce;
             }
         }
@@ -54,5 +66,38 @@ public class PlayerController : MonoBehaviour
         }
 
         controller.Move(_direction * Time.deltaTime);
+    }
+
+    private void ToggleLamp()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            IsToggleLamp = !IsToggleLamp;
+            ToggleLight();
+        }
+    }
+
+    private void ToggleLight()
+    {
+        if (IsToggleLamp)
+        {
+            lampMat.EnableKeyword("_EMISSION");
+            _bloom.threshold.value = 0;
+            
+            // HEALTH REGENATION
+        }
+        else
+        {
+            lampMat.DisableKeyword("_EMISSION");
+            _bloom.threshold.value = 0.5f;
+
+            tickTime -= Time.deltaTime;
+            if (tickTime <= 0)
+            {
+                
+                tickTime = 1;
+            }
+            // HEALTH DEGENERATION
+        }
     }
 }
