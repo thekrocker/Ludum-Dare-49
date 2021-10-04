@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 8;
     public float jumpForce = 10f;
     public float gravity = -8.92f;
+    public GameObject heartBeatrateSound;
 
     public float tickTime;
 
@@ -119,11 +120,12 @@ public class PlayerController : MonoBehaviour
 
     private void ToggleLight()
     {
+        heartBeatrateSound.SetActive(!IsToggleLamp);
         if (IsToggleLamp)
         {
             lampMat.EnableKeyword("_EMISSION");
             _bloom.threshold.value = 0;
-            
+                 
             // HEALTH REGENATION
         }
         else
